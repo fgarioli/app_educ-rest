@@ -15,9 +15,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,7 +36,7 @@ public class Usuario implements Serializable {
     @Column(name = "USERCODIGO")
     private Long codUsuario;
 
-    @Column(name = "USERLOGIN")
+    @Column(name = "USERLOGIN", unique = true)
     private String login;
 
     @Column(name = "USERSENHA")
