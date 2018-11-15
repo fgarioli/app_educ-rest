@@ -45,7 +45,7 @@ public class GradeHoraria implements Serializable {
     private GradeCurricular gradeCurricular;
 
     @OneToMany(mappedBy = "gradeHoraria")
-    private List<Tempo> tempo = new ArrayList<>();
+    private List<Tempo> tempos = new ArrayList<>();
 
     @JoinColumn(name = "TURMCODIGO", referencedColumnName = "TURMCODIGO")
     @ManyToOne(optional = false)

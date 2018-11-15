@@ -5,20 +5,15 @@
  */
 package br.edu.ifes.app.educ.repository;
 
-import br.edu.ifes.app.educ.model.Aluno;
-import br.edu.ifes.app.educ.model.Pessoa;
+import br.edu.ifes.app.educ.model.Pauta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author fernando
  */
 @Repository
-public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
-
-    @Transactional(readOnly = true)
-    Boolean existsByPessoa(Pessoa pessoa);
+public interface PautaRepository extends JpaRepository<Pauta, Integer> {
 
 }

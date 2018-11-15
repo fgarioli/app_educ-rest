@@ -41,4 +41,7 @@ public class Emeb implements Serializable {
     @ManyToOne
     private Cep cep;
     
+    @Column(name = "EMEBNUMERO")
+    private String numero;
+    
 }

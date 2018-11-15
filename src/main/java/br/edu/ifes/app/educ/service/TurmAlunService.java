@@ -5,7 +5,9 @@
  */
 package br.edu.ifes.app.educ.service;
 
-import br.edu.ifes.app.educ.repository.AlunoRepository;
+import br.edu.ifes.app.educ.model.TurmAlun;
+import br.edu.ifes.app.educ.repository.TurmAlunRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +16,13 @@ import org.springframework.stereotype.Service;
  * @author fernando
  */
 @Service
-public class AlunoService {
+public class TurmAlunService {
     
     @Autowired
-    private AlunoRepository alunoRepository;
+    private TurmAlunRepository turmAlunRepository;
+    
+    public List<TurmAlun> findByResponsavel(Integer respId, Integer ano) {
+        return turmAlunRepository.findByResponsavel(respId, ano);
+    }
     
 }

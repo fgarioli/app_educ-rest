@@ -1,6 +1,7 @@
 package br.edu.ifes.app.educ.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 @Builder
 @Data
@@ -22,6 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "EDTEMPO")
+@Where(clause = "TEMPDTFIM IS NULL")
 public class Tempo implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,5 +47,8 @@ public class Tempo implements Serializable {
     @JoinColumn(name = "GRHRCODIGO", referencedColumnName = "GRHRCODIGO")
     @ManyToOne(optional = false)
     private GradeHoraria gradeHoraria;
+    
+    @Column(name = "TEMPDTFIM")
+    private LocalDate dtFim;
 
 }
