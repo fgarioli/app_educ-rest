@@ -32,7 +32,7 @@ public class TurmAlun implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQEDTURMALUNTMALCODIGO")
     @Basic(optional = false)
     @Column(name = "TMALCODIGO")
-    private Integer codTurmAlun;    
+    private Integer codTurmAlun;
     
     @Column(name = "TMALDTINCLUSAO")
     private LocalDate dtInic;

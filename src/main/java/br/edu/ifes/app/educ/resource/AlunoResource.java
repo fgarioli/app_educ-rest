@@ -5,10 +5,18 @@
  */
 package br.edu.ifes.app.educ.resource;
 
-import br.edu.ifes.app.educ.dto.TurmAlunDTO;
-import br.edu.ifes.app.educ.model.TurmAlun;
-import br.edu.ifes.app.educ.service.TurmAlunService;
-import java.util.ArrayList;
+import br.edu.ifes.app.educ.dto.AtividadeAvaliativaDTO;
+import br.edu.ifes.app.educ.dto.BoletimDTO;
+import br.edu.ifes.app.educ.dto.FrequenciaDTO;
+import br.edu.ifes.app.educ.dto.GradeHorariaDTO;
+import br.edu.ifes.app.educ.model.AtividadeAvaliativa;
+import br.edu.ifes.app.educ.model.Frequencia;
+import br.edu.ifes.app.educ.model.GradeHoraria;
+import br.edu.ifes.app.educ.model.NotaTrimestral;
+import br.edu.ifes.app.educ.service.AtividadeAvaliativaService;
+import br.edu.ifes.app.educ.service.FrequenciaService;
+import br.edu.ifes.app.educ.service.GradeHorariaService;
+import br.edu.ifes.app.educ.service.NotaTrimestralService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,18 +34,51 @@ import org.springframework.web.bind.annotation.RestController;
 public class AlunoResource {
 
     @Autowired
-    private TurmAlunService turmAlunService;
+    private NotaTrimestralService notaTrimestralService;
 
-    @RequestMapping(value = "/{idResp}/{ano}", method = RequestMethod.GET)
-    public ResponseEntity<List<TurmAlunDTO>> findByResponsavel(@PathVariable Integer idResp, @PathVariable Integer ano) {
-        List<TurmAlun> list = turmAlunService.findByResponsavel(idResp, ano);
-        List<TurmAlunDTO> listDTO = new ArrayList<>();
+    @Autowired
+    private FrequenciaService frequenciaService;
 
-        list.forEach((a) -> {
-            listDTO.add(new TurmAlunDTO(a));
-        });
+    @Autowired
+    private GradeHorariaService gradeHorariaService;
+
+    @Autowired
+    private AtividadeAvaliativaService ativAvalService;
+
+    @RequestMapping(value = {"/boletim/{idTurmAlun}", "/boletim/{idTurmAlun}/{trimestre}"}, method = RequestMethod.GET)
+    public ResponseEntity<List<BoletimDTO>> findBoletimByTurmAlunIdTrimestre(@PathVariable Integer idTurmAlun, @PathVariable(required = false) Integer trimestre) {
+        List<NotaTrimestral> list = trimestre == null ? notaTrimestralService.findByTurmAlunId(idTurmAlun) : notaTrimestralService.findByTurmAlunIdTrimestre(idTurmAlun, trimestre);
+
+        List<BoletimDTO> listBoletim = BoletimDTO.gerarBoletim(list);
+
+        return ResponseEntity.ok().body(listBoletim);
+    }
+
+    @RequestMapping(value = {"/freq/{idTurmAlun}", "/freq/{idTurmAlun}/{trimestre}"}, method = RequestMethod.GET)
+    public ResponseEntity<List<FrequenciaDTO>> findFreqByTurmAlunIdTrimestre(@PathVariable Integer idTurmAlun, @PathVariable(required = false) Integer trimestre) {
+        List<Frequencia> list = trimestre == null ? frequenciaService.findByTurmAlunId(idTurmAlun) : frequenciaService.findByTurmAlunIdTrimestre(idTurmAlun, trimestre);
+
+        List<FrequenciaDTO> listDTO = FrequenciaDTO.gerarFrequenciasDTO(list);
 
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @RequestMapping(value = "/grade/{idTurmAlun}", method = RequestMethod.GET)
+    public ResponseEntity<GradeHorariaDTO> findBoletimByTurmAlunId(@PathVariable Integer idTurmAlun) {
+        List<GradeHoraria> list = gradeHorariaService.findByTurmAlun(idTurmAlun);
+
+        GradeHorariaDTO ghdto = new GradeHorariaDTO(list);
+
+        return ResponseEntity.ok().body(ghdto);
+    }
+
+    @RequestMapping(value = {"/ativ/{turmAlunId}", "/ativ/{turmAlunId}/{trimestre}"}, method = RequestMethod.GET)
+    public ResponseEntity<List<AtividadeAvaliativaDTO>> findAtivAvalByTurmAlunIdTrimestre(@PathVariable Integer turmAlunId, @PathVariable(required = false) Integer trimestre) {
+        List<AtividadeAvaliativa> listAtivAval = trimestre == null ? ativAvalService.findByTurmAlunId(turmAlunId) : ativAvalService.findByTurmAlunIdTrimestre(turmAlunId, trimestre);
+
+        List<AtividadeAvaliativaDTO> list = AtividadeAvaliativaDTO.getList(listAtivAval);
+
+        return ResponseEntity.ok().body(list);
     }
 
 }

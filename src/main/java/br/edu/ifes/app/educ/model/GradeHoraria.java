@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -45,6 +46,7 @@ public class GradeHoraria implements Serializable {
     private GradeCurricular gradeCurricular;
 
     @OneToMany(mappedBy = "gradeHoraria")
+    @OrderBy("diaSemana, tempo")
     private List<Tempo> tempos = new ArrayList<>();
 
     @JoinColumn(name = "TURMCODIGO", referencedColumnName = "TURMCODIGO")

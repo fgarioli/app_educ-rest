@@ -59,5 +59,20 @@ public class NotaTrimestral implements Serializable {
 
     @OneToMany(mappedBy = "notaTrimestral")
     private List<NotaAtivAval> notaAtivAval = new ArrayList<>();
+    
+    @JoinColumn(name = "ATIVCODIGOREC", referencedColumnName = "ATIVCODIGO")
+    @ManyToOne(optional = true)
+    private AtividadeAvaliativa recuperacao;
+    
+    @Column(name = "NOTAREC")
+    private Double notaRecuperacao;
+    
+    @JoinColumn(name = "AVALCODIGO", referencedColumnName = "AVALCODIGO")
+    @ManyToOne(optional = false)
+    private Periodo periodo;
+    
+    @JoinColumn(name = "GRCUCODIGO", referencedColumnName = "GRCUCODIGO")
+    @ManyToOne(optional = false)
+    private GradeCurricular gradeCurricular;
 
 }
