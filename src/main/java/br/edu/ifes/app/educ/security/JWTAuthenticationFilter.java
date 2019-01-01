@@ -5,8 +5,6 @@
  */
 package br.edu.ifes.app.educ.security;
 
-import br.edu.ifes.app.educ.dto.CredenciaisDTO;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,18 +38,21 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req,
             HttpServletResponse res) throws AuthenticationException {
+        String username = obtainUsername(req);
+        String password = obtainPassword(req);
+        String grantType = req.getParameter("grant_type");
 
-        try {
-            CredenciaisDTO creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), CredenciaisDTO.class);
-
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getLogin(), creds.getSenha(), new ArrayList<>());
-
-            Authentication auth = authenticationManager.authenticate(authToken);
-            return auth;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if ("access_token".equals(grantType)) {
+            
+        } else if ("refresh_token".equals(grantType)) {
+            
         }
+
+        username = username != null ? username.trim() : username;
+
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>());
+        Authentication auth = authenticationManager.authenticate(authToken);
+        return auth;
     }
 
     @Override
@@ -65,6 +66,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         res.addHeader("Authorization", "Bearer " + token);
         res.addHeader("access-control-expose-headers", "Authorization");
     }
+    
+    
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
 

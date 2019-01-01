@@ -64,7 +64,7 @@ public class AlunoResource {
     }
 
     @RequestMapping(value = "/grade/{idTurmAlun}", method = RequestMethod.GET)
-    public ResponseEntity<GradeHorariaDTO> findBoletimByTurmAlunId(@PathVariable Integer idTurmAlun) {
+    public ResponseEntity<GradeHorariaDTO> findGradeHorariaByTurmAlunId(@PathVariable Integer idTurmAlun) {
         List<GradeHoraria> list = gradeHorariaService.findByTurmAlun(idTurmAlun);
 
         GradeHorariaDTO ghdto = new GradeHorariaDTO(list);

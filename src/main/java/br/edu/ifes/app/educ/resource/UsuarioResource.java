@@ -29,7 +29,7 @@ public class UsuarioResource {
     private MensagemUsuarioService mensagemService;
     
     @RequestMapping(value = "/msg/{idUsuario}", method = RequestMethod.GET)
-    public ResponseEntity<List<MensagemDTO>> findMensagemByUsuario(@PathVariable Integer idUsuario) {
+    public ResponseEntity<List<MensagemDTO>> findMensagemByUsuario(@PathVariable Long idUsuario) {
         List<MensagemUsuario> list = mensagemService.findMensagemByUsuario(idUsuario);
 
         List<MensagemDTO> listDTO = new ArrayList<>();

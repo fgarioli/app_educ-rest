@@ -6,6 +6,7 @@ import br.edu.ifes.app.educ.model.AtividadeAvaliativa;
 import br.edu.ifes.app.educ.model.Bairro;
 import br.edu.ifes.app.educ.model.Cep;
 import br.edu.ifes.app.educ.model.Cidade;
+import br.edu.ifes.app.educ.model.DataCalendario;
 import br.edu.ifes.app.educ.model.Disciplina;
 import br.edu.ifes.app.educ.model.Docente;
 import br.edu.ifes.app.educ.model.Dominio;
@@ -16,6 +17,8 @@ import br.edu.ifes.app.educ.model.Funcionario;
 import br.edu.ifes.app.educ.model.GradeCurricular;
 import br.edu.ifes.app.educ.model.GradeHoraria;
 import br.edu.ifes.app.educ.model.Matricula;
+import br.edu.ifes.app.educ.model.Mensagem;
+import br.edu.ifes.app.educ.model.MensagemUsuario;
 import br.edu.ifes.app.educ.model.NotaAtivAval;
 import br.edu.ifes.app.educ.model.NotaTrimestral;
 import br.edu.ifes.app.educ.model.Pauta;
@@ -33,6 +36,7 @@ import br.edu.ifes.app.educ.repository.AtividadeAvaliativaRepository;
 import br.edu.ifes.app.educ.repository.BairroRepository;
 import br.edu.ifes.app.educ.repository.CepRepository;
 import br.edu.ifes.app.educ.repository.CidadeRepository;
+import br.edu.ifes.app.educ.repository.DataCalendarioRepository;
 import br.edu.ifes.app.educ.repository.DisciplinaRepository;
 import br.edu.ifes.app.educ.repository.DocenteRepository;
 import br.edu.ifes.app.educ.repository.DominioRepository;
@@ -43,6 +47,8 @@ import br.edu.ifes.app.educ.repository.FuncionarioRepository;
 import br.edu.ifes.app.educ.repository.GradeCurricularRepository;
 import br.edu.ifes.app.educ.repository.GradeHorariaRepository;
 import br.edu.ifes.app.educ.repository.MatriculaRepository;
+import br.edu.ifes.app.educ.repository.MensagemRepository;
+import br.edu.ifes.app.educ.repository.MensagemUsuarioRepository;
 import br.edu.ifes.app.educ.repository.NotaAtivAvalRepository;
 import br.edu.ifes.app.educ.repository.NotaTrimestralRepository;
 import br.edu.ifes.app.educ.repository.PautaRepository;
@@ -56,6 +62,7 @@ import br.edu.ifes.app.educ.repository.UsuarioRepository;
 import br.edu.ifes.app.educ.repository.VinculoRepository;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -121,6 +128,12 @@ public class DBService {
     private PautaRepository pautaRepository;
     @Autowired
     private FrequenciaRepository frequenciaRepository;
+    @Autowired
+    private DataCalendarioRepository dataRepository;
+    @Autowired
+    private MensagemRepository mensagemRepository;
+    @Autowired
+    private MensagemUsuarioRepository mensagemUsuarioRepository;
 
     public void instantiateTestDatabase() throws ParseException {
 
@@ -143,7 +156,7 @@ public class DBService {
         Vinculo v1 = Vinculo.builder().aluno(a1).responsavel(r1).ehResp('1').build();
         Vinculo v2 = Vinculo.builder().aluno(a2).responsavel(r1).ehResp('1').build();
 
-        Usuario u1 = Usuario.builder().pessoa(p1).login("teste").senha(pe.encode("123456")).build();
+        Usuario u1 = Usuario.builder().pessoa(p1).login("teste").senha(pe.encode("123")).build();
         Usuario u2 = Usuario.builder().pessoa(p2).login("24654143050").senha(pe.encode("123456")).build();
         Usuario u3 = Usuario.builder().pessoa(p3).login("25423465001").senha(pe.encode("123456")).build();
 
@@ -358,6 +371,15 @@ public class DBService {
         Frequencia fr1 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('0').tempo(tp1).build();
         Frequencia fr2 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('1').tempo(tp2).build();
         Frequencia fr3 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('1').tempo(tp3).build();
+        
+        DataCalendario dt1 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.APRIL, 21)).descrCale("Tiradentes").periodoCale(1).build();
+        DataCalendario dt2 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.SEPTEMBER, 7)).descrCale("Tiradentes").periodoCale(1).build();
+        DataCalendario dt3 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.NOVEMBER, 15)).descrCale("Tiradentes").periodoCale(1).build();
+        
+        Mensagem msg1 = Mensagem.builder().assunto("Mensagem de Teste").mensagem("Mensagem Teste").remetente(u1).build();
+        
+        MensagemUsuario mUsr1 = MensagemUsuario.builder().destinatario(u2).mensagem(msg1).build();
+        MensagemUsuario mUsr2 = MensagemUsuario.builder().destinatario(u3).mensagem(msg1).build();
 
         // ---------------------------------------- INSERÇÃO DE DADOS ---------------------------------------- 
         pessoaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
@@ -387,5 +409,8 @@ public class DBService {
         notaAtivAvalRepository.saveAll(Arrays.asList(naa1, naa2, naa3, naa4, naa5, naa6, naa7, naa8, naa9, naa10, naa11, naa12, naa13, naa14));
         pautaRepository.saveAll(Arrays.asList(pt1, pt2, pt3, pt4, pt5, pt6, pt7, pt8, pt9, pt10, pt11, pt12, pt13, pt14));
         frequenciaRepository.saveAll(Arrays.asList(fr1, fr2, fr3));
+        dataRepository.saveAll(Arrays.asList(dt1, dt2, dt3));
+        mensagemRepository.saveAll(Arrays.asList(msg1));
+        mensagemUsuarioRepository.saveAll(Arrays.asList(mUsr1, mUsr2));
     }
 }

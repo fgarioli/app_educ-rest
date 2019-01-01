@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface MensagemUsuarioRepository extends JpaRepository<MensagemUsuario, Integer> {
     
     @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM Frequencia obj WHERE obj.notaTrimestral.turmAlun.codTurmAlun = :idUsuario GROUP BY obj.notaTrimestral.periodo.numPeriodo, obj.pauta.dataPauta ORDER BY obj.notaTrimestral.periodo.numPeriodo, obj.pauta.dataPauta")
-    public List<MensagemUsuario> findMensagemByUsuario(@Param("idUsuario") Integer idUsuario);
+    @Query(value = "SELECT obj FROM MensagemUsuario obj WHERE obj.destinatario.codUsuario = :idUsuario")
+    public List<MensagemUsuario> findMensagemByUsuario(@Param("idUsuario") Long idUsuario);
 
 }

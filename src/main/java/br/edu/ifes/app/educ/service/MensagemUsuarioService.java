@@ -21,7 +21,7 @@ public class MensagemUsuarioService {
     @Autowired
     private MensagemUsuarioRepository mensagemRepository;
     
-    public List<MensagemUsuario> findMensagemByUsuario(Integer idUsuario) {
+    public List<MensagemUsuario> findMensagemByUsuario(Long idUsuario) {
         return mensagemRepository.findMensagemByUsuario(idUsuario);
     }
     
