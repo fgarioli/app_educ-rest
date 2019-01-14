@@ -372,14 +372,15 @@ public class DBService {
         Frequencia fr2 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('1').tempo(tp2).build();
         Frequencia fr3 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('1').tempo(tp3).build();
         
-        DataCalendario dt1 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.APRIL, 21)).descrCale("Tiradentes").periodoCale(1).build();
-        DataCalendario dt2 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.SEPTEMBER, 7)).descrCale("Tiradentes").periodoCale(1).build();
-        DataCalendario dt3 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.NOVEMBER, 15)).descrCale("Tiradentes").periodoCale(1).build();
+        DataCalendario dt1 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.APRIL, 21)).descrCale("Tiradentes").periodoCale(1).tipoCale('F').build();
+        DataCalendario dt2 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.SEPTEMBER, 7)).descrCale("Tiradentes").periodoCale(1).tipoCale('F').build();
+        DataCalendario dt3 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.NOVEMBER, 15)).descrCale("Tiradentes").periodoCale(1).tipoCale('F').build();
         
         Mensagem msg1 = Mensagem.builder().assunto("Mensagem de Teste").mensagem("Mensagem Teste").remetente(u1).build();
         
         MensagemUsuario mUsr1 = MensagemUsuario.builder().destinatario(u2).mensagem(msg1).build();
         MensagemUsuario mUsr2 = MensagemUsuario.builder().destinatario(u3).mensagem(msg1).build();
+        MensagemUsuario mUsr3 = MensagemUsuario.builder().destinatario(u1).mensagem(msg1).build();
 
         // ---------------------------------------- INSERÇÃO DE DADOS ---------------------------------------- 
         pessoaRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10));
@@ -411,6 +412,6 @@ public class DBService {
         frequenciaRepository.saveAll(Arrays.asList(fr1, fr2, fr3));
         dataRepository.saveAll(Arrays.asList(dt1, dt2, dt3));
         mensagemRepository.saveAll(Arrays.asList(msg1));
-        mensagemUsuarioRepository.saveAll(Arrays.asList(mUsr1, mUsr2));
+        mensagemUsuarioRepository.saveAll(Arrays.asList(mUsr1, mUsr2, mUsr3));
     }
 }

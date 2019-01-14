@@ -5,6 +5,7 @@
  */
 package br.edu.ifes.app.educ.security;
 
+import br.edu.ifes.app.educ.dto.UsuarioDTO;
 import br.edu.ifes.app.educ.model.Usuario;
 import br.edu.ifes.app.educ.model.enums.Perfil;
 import java.util.Collection;
@@ -25,12 +26,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class UserSS implements UserDetails {
     
     private Usuario usuario;
+    private UsuarioDTO userDto;
     
     private Collection<? extends GrantedAuthority> authorities;
     
-    public UserSS(Usuario usuario, Set<Perfil> perfis) {
+    public UserSS(Usuario usuario, Set<Perfil> perfis, UsuarioDTO userDto) {
         this.usuario = usuario;
         this.authorities = perfis.stream().map(perfil -> new SimpleGrantedAuthority(perfil.getDescricao())).collect(Collectors.toList());
+        this.userDto = userDto;
     }
 
     @Override

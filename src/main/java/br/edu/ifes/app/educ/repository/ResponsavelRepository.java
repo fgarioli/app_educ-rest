@@ -7,6 +7,7 @@ package br.edu.ifes.app.educ.repository;
 
 import br.edu.ifes.app.educ.model.Pessoa;
 import br.edu.ifes.app.educ.model.Responsavel;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public interface ResponsavelRepository extends JpaRepository<Responsavel, Integer> {
-
-//    @Transactional(readOnly = true)
-//    @Query("SELECT COUNT() FROM Emprestimo obj WHERE obj.cliente.id = :clienteId ORDER BY obj.id")
-//    public Integer findEmprestimos(@Param("clienteId") Integer cliente_id);
     
     @Transactional(readOnly = true)
     Boolean existsByPessoa(Pessoa pessoa);
+    
+    @Transactional(readOnly = true)
+    public List<Responsavel> findByPessoa(Pessoa pessoa);
 
 }

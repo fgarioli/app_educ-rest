@@ -29,7 +29,7 @@ public class DataCalendarioDTO implements Serializable {
     
     private String descrCale;
     
-    private Character tipoCale;
+    private String tipoCale;
     
     private Integer periodoCale;
     
@@ -37,8 +37,17 @@ public class DataCalendarioDTO implements Serializable {
         this.codCale = data.getCodCale();
         this.dataCale = data.getDataCale();
         this.descrCale = data.getDescrCale();
-        this.tipoCale = data.getTipoCale();
+        this.tipoCale = getTipo(data.getTipoCale());
         this.periodoCale = data.getPeriodoCale();
+    }
+    
+    private String getTipo(Character tipo) {
+        switch (tipo) {
+            case 'F':
+                return "FERIADO";
+            default:
+                return "";
+        }
     }
     
 }

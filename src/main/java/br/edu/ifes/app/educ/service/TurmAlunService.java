@@ -21,6 +21,14 @@ public class TurmAlunService {
     @Autowired
     private TurmAlunRepository turmAlunRepository;
     
+    public List<TurmAlun> findByAlunIdAno(Integer alunId, Integer ano) {
+        return turmAlunRepository.findByAlunIdAno(alunId, ano);
+    }
+    
+    public List<TurmAlun> findByPessIdAno(Integer pessId, Integer ano) {
+        return turmAlunRepository.findByPessIdAno(pessId, ano);
+    }
+    
     public List<TurmAlun> findByResponsavel(Integer respId, Integer ano) {
         return turmAlunRepository.findByResponsavel(respId, ano);
     }

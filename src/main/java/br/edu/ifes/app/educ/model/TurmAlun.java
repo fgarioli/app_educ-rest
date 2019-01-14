@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 @Builder
 @Data
@@ -23,6 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "EDTURMALUN")
+@Where(clause = "TMALDTFIM IS NULL")
 public class TurmAlun implements Serializable {
 
     private static final long serialVersionUID = 1L;

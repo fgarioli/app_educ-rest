@@ -9,14 +9,18 @@ import br.edu.ifes.app.educ.dto.AtividadeAvaliativaDTO;
 import br.edu.ifes.app.educ.dto.BoletimDTO;
 import br.edu.ifes.app.educ.dto.FrequenciaDTO;
 import br.edu.ifes.app.educ.dto.GradeHorariaDTO;
+import br.edu.ifes.app.educ.dto.TurmAlunDTO;
 import br.edu.ifes.app.educ.model.AtividadeAvaliativa;
 import br.edu.ifes.app.educ.model.Frequencia;
 import br.edu.ifes.app.educ.model.GradeHoraria;
 import br.edu.ifes.app.educ.model.NotaTrimestral;
+import br.edu.ifes.app.educ.model.TurmAlun;
 import br.edu.ifes.app.educ.service.AtividadeAvaliativaService;
 import br.edu.ifes.app.educ.service.FrequenciaService;
 import br.edu.ifes.app.educ.service.GradeHorariaService;
 import br.edu.ifes.app.educ.service.NotaTrimestralService;
+import br.edu.ifes.app.educ.service.TurmAlunService;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +48,33 @@ public class AlunoResource {
 
     @Autowired
     private AtividadeAvaliativaService ativAvalService;
+    
+    @Autowired
+    private TurmAlunService turmAlunService;
+    
+    @RequestMapping(value = "/alun/{alunId}/{ano}", method = RequestMethod.GET)
+    public ResponseEntity<List<TurmAlunDTO>> findByAlunIdAno(@PathVariable Integer alunId, @PathVariable Integer ano) {
+        List<TurmAlun> list = turmAlunService.findByAlunIdAno(alunId, ano);
+        List<TurmAlunDTO> listDTO = new ArrayList<>();
+
+        list.forEach((a) -> {
+            listDTO.add(new TurmAlunDTO(a));
+        });
+
+        return ResponseEntity.ok().body(listDTO);
+    }
+    
+    @RequestMapping(value = "/{pessId}/{ano}", method = RequestMethod.GET)
+    public ResponseEntity<List<TurmAlunDTO>> findByPessIdAno(@PathVariable Integer pessId, @PathVariable Integer ano) {
+        List<TurmAlun> list = turmAlunService.findByPessIdAno(pessId, ano);
+        List<TurmAlunDTO> listDTO = new ArrayList<>();
+
+        list.forEach((a) -> {
+            listDTO.add(new TurmAlunDTO(a));
+        });
+
+        return ResponseEntity.ok().body(listDTO);
+    }
 
     @RequestMapping(value = {"/boletim/{idTurmAlun}", "/boletim/{idTurmAlun}/{trimestre}"}, method = RequestMethod.GET)
     public ResponseEntity<List<BoletimDTO>> findBoletimByTurmAlunIdTrimestre(@PathVariable Integer idTurmAlun, @PathVariable(required = false) Integer trimestre) {

@@ -29,7 +29,7 @@ public class DataCalendarioResource {
     private DataCalendarioService calendarioService;
     
     @RequestMapping(value = "/{ano}", method = RequestMethod.GET)
-    public ResponseEntity<List<DataCalendarioDTO>> findBoletimByAlunoTrimestre(@PathVariable Integer ano) {
+    public ResponseEntity<List<DataCalendarioDTO>> findCalendarioByAno(@PathVariable Integer ano) {
         List<DataCalendario> list = calendarioService.findDataCalendarioByAno(ano);
 
         List<DataCalendarioDTO> listDTO = new ArrayList<>();
