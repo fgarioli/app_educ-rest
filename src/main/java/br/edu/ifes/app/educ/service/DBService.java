@@ -1,5 +1,6 @@
 package br.edu.ifes.app.educ.service;
 
+import br.edu.ifes.app.educ.security.ShaPasswordEncoder;
 import br.edu.ifes.app.educ.model.Aluno;
 import br.edu.ifes.app.educ.model.Ano;
 import br.edu.ifes.app.educ.model.AtividadeAvaliativa;
@@ -65,15 +66,16 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class DBService {
 
+//    @Autowired
+//    private BCryptPasswordEncoder pe;
     @Autowired
-    private BCryptPasswordEncoder pe;
+    private ShaPasswordEncoder pe;
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired

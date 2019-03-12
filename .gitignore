@@ -1,2 +1,5 @@
 /target
 .DS_Store
+/src/main/java/br/edu/ifes/app/educ/config/DataSourceConfig.java
+/src/main/resources/application-dev.properties
+/src/main/resources/application-prod.properties
