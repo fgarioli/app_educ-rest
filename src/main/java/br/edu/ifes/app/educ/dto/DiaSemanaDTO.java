@@ -7,6 +7,7 @@ package br.edu.ifes.app.educ.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+import java.util.Comparator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -25,7 +26,9 @@ public enum DiaSemanaDTO {
     QUINTA(5, "Quinta-Feira"),
     SEXTA(6, "Sexta-Feira"),
     SABADO(7, "Sábado");
-    
-    private Integer idDia;    
+
+    private Integer idDia;
     private String dia;
+    
+    public static Comparator<DiaSemanaDTO> diaComparator = (DiaSemanaDTO d1, DiaSemanaDTO d2) -> d1.getIdDia() - d2.getIdDia();
 }

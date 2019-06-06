@@ -31,7 +31,7 @@ public class GradeHoraria implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name = "SEQEDGRHRGRHRCODIGO", sequenceName = "SEQ_EDGRHR_GRHRCODIGO", allocationSize = 1)
+    @SequenceGenerator(name = "SEQEDGRHRGRHRCODIGO", sequenceName = "SEQ_EDGRHR_GRHRCODIGO", allocationSize=1) 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQEDGRHRGRHRCODIGO")
     @Basic(optional = false)
     @Column(name = "GRHRCODIGO")
@@ -46,8 +46,8 @@ public class GradeHoraria implements Serializable {
     private GradeCurricular gradeCurricular;
 
     @OneToMany(mappedBy = "gradeHoraria")
-    @OrderBy("diaSemana, tempo")
-    private List<Tempo> tempos = new ArrayList<>();
+    @OrderBy("diaSemana")
+    private List<Tempo> tempos;
 
     @JoinColumn(name = "TURMCODIGO", referencedColumnName = "TURMCODIGO")
     @ManyToOne(optional = false)

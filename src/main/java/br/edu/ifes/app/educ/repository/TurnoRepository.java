@@ -5,7 +5,7 @@
  */
 package br.edu.ifes.app.educ.repository;
 
-import br.edu.ifes.app.educ.model.Docente;
+import br.edu.ifes.app.educ.model.Turno;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author fernando
  */
 @Repository
-public interface DocenteRepository extends JpaRepository<Docente, Integer> {
-    
+public interface TurnoRepository extends JpaRepository<Turno, Integer> {
+
 }

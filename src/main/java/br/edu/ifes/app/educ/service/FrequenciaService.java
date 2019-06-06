@@ -17,16 +17,18 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FrequenciaService {
-    
+
     @Autowired
     private FrequenciaRepository frequenciaRepository;
-    
+
     public List<Frequencia> findByTurmAlunId(Integer turmAlunId) {
+        System.out.println("--------------------- findByTurmAlunId ---------------------");
         return frequenciaRepository.findByTurmAlunId(turmAlunId);
     }
-    
+
     public List<Frequencia> findByTurmAlunIdTrimestre(Integer turmAlunId, Integer trimestre) {
+        System.out.println("--------------------- findByTurmAlunIdTrimestre ---------------------");
         return frequenciaRepository.findByTurmAlunIdTrimestre(turmAlunId, trimestre.shortValue());
     }
-    
+
 }

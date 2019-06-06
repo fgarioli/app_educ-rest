@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.edu.ifes.app.educ.model;
 
 import java.io.Serializable;
@@ -19,23 +24,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "EDDOMI")
-public class Dominio implements Serializable {
-
+@Table(name = "EDTURN")
+public class Turno implements Serializable {
+    
     private static final long serialVersionUID = 1L;
-
+    
     @Id
-    @SequenceGenerator(name = "SEQEDDOMIDOMICODIGO", sequenceName = "SEQ_EDDOMI_DOMICODIGO", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQEDDOMIDOMICODIGO")
+    @SequenceGenerator(name = "SEQEDTURNTURNCODIGO", sequenceName = "SEQ_EDTURN_TURNCODIGO", allocationSize=1) 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQEDTURNTURNCODIGO") 
     @Basic(optional = false)
-    @Column(name = "DOMICODIGO")
-    private Integer codDomi;
-
+    @Column(name = "TURNCODIGO")
+    private Integer turncodigo;
+    
     @Basic(optional = false)
-    @Column(name = "DOMIDESCR")
-    private String descrDomi;
-
-    @Column(name = "DOMIVALOR")
-    private String valorDomi;
-
+    @Column(name = "TURNDESCR")
+    private String turndescr;
+    
 }

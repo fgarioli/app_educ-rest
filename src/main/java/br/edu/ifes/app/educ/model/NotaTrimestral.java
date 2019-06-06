@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -48,31 +49,32 @@ public class NotaTrimestral implements Serializable {
 
     @Lob
     @Column(name = "NOTADESCR")
-    private String notaDescr;
-
-    @OneToMany(mappedBy = "notaTrimestral")
-    private List<Frequencia> frequencia = new ArrayList<>();
+    private String notaDescr;    
 
     @JoinColumn(name = "TMALCODIGO", referencedColumnName = "TMALCODIGO")
     @ManyToOne(optional = true)
-    private TurmAlun turmAlun;
+    private TurmAlun turmAlun;    
 
-    @OneToMany(mappedBy = "notaTrimestral")
-    private List<NotaAtivAval> notaAtivAval = new ArrayList<>();
-    
     @JoinColumn(name = "ATIVCODIGOREC", referencedColumnName = "ATIVCODIGO")
     @ManyToOne(optional = true)
     private AtividadeAvaliativa recuperacao;
-    
+
     @Column(name = "NOTAREC")
     private Double notaRecuperacao;
-    
+
     @JoinColumn(name = "AVALCODIGO", referencedColumnName = "AVALCODIGO")
     @ManyToOne(optional = false)
     private Periodo periodo;
-    
+
     @JoinColumn(name = "GRCUCODIGO", referencedColumnName = "GRCUCODIGO")
     @ManyToOne(optional = false)
     private GradeCurricular gradeCurricular;
+    
+    @OneToMany(mappedBy = "notaTrimestral")
+    @OrderBy("tempo.tempo, pauta.dataPauta")
+    private List<Frequencia> frequencia;
+    
+    @OneToMany(mappedBy = "notaTrimestral")
+    private List<NotaAtivAval> notaAtivAval;
 
 }

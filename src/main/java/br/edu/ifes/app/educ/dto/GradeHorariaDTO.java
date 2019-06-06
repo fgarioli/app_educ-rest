@@ -8,6 +8,7 @@ package br.edu.ifes.app.educ.dto;
 import br.edu.ifes.app.educ.model.GradeHoraria;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -75,6 +76,9 @@ public class GradeHorariaDTO implements Serializable {
                     }
                 });
             });
+            
+            Collections.sort(diasSemana, DiaSemanaDTO.diaComparator);
+            Collections.sort(tempos, TempoDTO.tempoComparator);
         }
     }
 

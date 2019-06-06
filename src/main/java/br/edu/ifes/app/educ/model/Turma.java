@@ -52,4 +52,8 @@ public class Turma implements Serializable {
     @ManyToOne(optional = false)
     private Emeb emeb;
 
+    @JoinColumn(name = "TURNCODIGO", referencedColumnName = "TURNCODIGO")
+    @ManyToOne(optional = false)
+    private Turno turno;
+
 }

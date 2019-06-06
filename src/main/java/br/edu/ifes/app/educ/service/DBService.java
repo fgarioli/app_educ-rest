@@ -29,6 +29,7 @@ import br.edu.ifes.app.educ.model.Responsavel;
 import br.edu.ifes.app.educ.model.Tempo;
 import br.edu.ifes.app.educ.model.TurmAlun;
 import br.edu.ifes.app.educ.model.Turma;
+import br.edu.ifes.app.educ.model.Turno;
 import br.edu.ifes.app.educ.model.Usuario;
 import br.edu.ifes.app.educ.model.Vinculo;
 import br.edu.ifes.app.educ.repository.AlunoRepository;
@@ -59,6 +60,7 @@ import br.edu.ifes.app.educ.repository.ResponsavelRepository;
 import br.edu.ifes.app.educ.repository.TempoRepository;
 import br.edu.ifes.app.educ.repository.TurmAlunRepository;
 import br.edu.ifes.app.educ.repository.TurmaRepository;
+import br.edu.ifes.app.educ.repository.TurnoRepository;
 import br.edu.ifes.app.educ.repository.UsuarioRepository;
 import br.edu.ifes.app.educ.repository.VinculoRepository;
 import java.text.ParseException;
@@ -136,12 +138,14 @@ public class DBService {
     private MensagemRepository mensagemRepository;
     @Autowired
     private MensagemUsuarioRepository mensagemUsuarioRepository;
+    @Autowired
+    private TurnoRepository turnoRepository;
 
     public void instantiateTestDatabase() throws ParseException {
 
         // ---------------------------------------- CRIAÇÃO DOS DADOS ----------------------------------------
         Pessoa p1 = Pessoa.builder().nomePess("Carlos Henrique Garioli").celular("99999999999").cpf("67156552007").dtExpRg(LocalDate.now()).dtNasc(LocalDate.now()).email("teste@teste.com.br").nacionalidade("brasileiro").nomeMae("Maria das Graças").nomePai("José da Silva").rg("123456").rgCompl("teste").telefone("289998989899").telefoneMae("12333336666").telefonePai("12444448888").build();
-        Pessoa p2 = Pessoa.builder().nomePess("Lucas Ribeiro Garioli").celular("99999999999").cpf("24654143050").dtExpRg(LocalDate.now()).dtNasc(LocalDate.now()).email("teste@teste.com.br").nacionalidade("brasileiro").nomeMae("Maria das Graças").nomePai("José da Silva").rg("123456").rgCompl("teste").telefone("289998989899").telefoneMae("12333336666").telefonePai("12444448888").build();
+        Pessoa p2 = Pessoa.builder().nomePess("Pedro Henrique Silva").celular("99999999999").cpf("24654143050").dtExpRg(LocalDate.now()).dtNasc(LocalDate.now()).email("teste@teste.com.br").nacionalidade("brasileiro").nomeMae("Maria das Graças").nomePai("José da Silva").rg("123456").rgCompl("teste").telefone("289998989899").telefoneMae("12333336666").telefonePai("12444448888").build();
         Pessoa p3 = Pessoa.builder().nomePess("Fernando Ribeiro Garioli").celular("99999999999").cpf("25423465001").dtExpRg(LocalDate.now()).dtNasc(LocalDate.now()).email("teste@teste.com.br").nacionalidade("brasileiro").nomeMae("Maria das Graças").nomePai("José da Silva").rg("123456").rgCompl("teste").telefone("289998989899").telefoneMae("12333336666").telefonePai("12444448888").build();
         Pessoa p4 = Pessoa.builder().nomePess("João da Silva").celular("99999999999").cpf("56296233035").dtExpRg(LocalDate.now()).dtNasc(LocalDate.now()).email("teste@teste.com.br").nacionalidade("brasileiro").nomeMae("Maria das Graças").nomePai("José da Silva").rg("123456").rgCompl("teste").telefone("289998989899").telefoneMae("12333336666").telefonePai("12444448888").build();
         Pessoa p5 = Pessoa.builder().nomePess("José Oliveira").celular("99999999999").cpf("79783119028").dtExpRg(LocalDate.now()).dtNasc(LocalDate.now()).email("teste@teste.com.br").nacionalidade("brasileiro").nomeMae("Maria das Graças").nomePai("José da Silva").rg("123456").rgCompl("teste").telefone("289998989899").telefoneMae("12333336666").telefonePai("12444448888").build();
@@ -162,8 +166,8 @@ public class DBService {
         Usuario u2 = Usuario.builder().pessoa(p2).login("24654143050").senha(pe.encode("123456")).build();
         Usuario u3 = Usuario.builder().pessoa(p3).login("25423465001").senha(pe.encode("123456")).build();
 
-        Matricula m1 = Matricula.builder().aluno(a1).dtInic(LocalDate.now()).matr("TESTE2018").build();
-        Matricula m2 = Matricula.builder().aluno(a2).dtInic(LocalDate.now()).matr("TESTE2018").build();
+        Matricula m1 = Matricula.builder().aluno(a1).dtInic(LocalDate.now()).matr("TESTE2019").build();
+        Matricula m2 = Matricula.builder().aluno(a2).dtInic(LocalDate.now()).matr("TESTE2019").build();
 
         Disciplina d1 = Disciplina.builder().nomeDisc("Matemática").build();
         Disciplina d2 = Disciplina.builder().nomeDisc("Português").build();
@@ -216,10 +220,14 @@ public class DBService {
 
         Cep cp1 = Cep.builder().bairro(b1).cep("29304689").complemento("teste").descrCep("Rua Teste").build();
 
-        Emeb e = Emeb.builder().nomeEmeb("EMEB Teste").cep(cp1).build();
+        Emeb e = Emeb.builder().nomeEmeb("EMEB SANDRA MONTEIRO").cep(cp1).build();
 
-        Turma t1 = Turma.builder().dtInic(LocalDate.now()).emeb(e).exercicio(2018).nomeTurm("1º M1").build();
-        Turma t2 = Turma.builder().dtInic(LocalDate.now()).emeb(e).exercicio(2018).nomeTurm("2º M1").build();
+        Turno tn1 = Turno.builder().turndescr("MATUTINO").build();
+        Turno tn2 = Turno.builder().turndescr("VESPERTINO").build();
+        Turno tn3 = Turno.builder().turndescr("NOTURNO").build();
+
+        Turma t1 = Turma.builder().dtInic(LocalDate.now()).emeb(e).exercicio(2019).nomeTurm("MATERNAL II V1").turno(tn1).build();
+        Turma t2 = Turma.builder().dtInic(LocalDate.now()).emeb(e).exercicio(2019).nomeTurm("2º M1").turno(tn2).build();
 
         TurmAlun tm1 = TurmAlun.builder().dtInic(LocalDate.now()).matricula(m1).turma(t1).build();
         TurmAlun tm2 = TurmAlun.builder().dtInic(LocalDate.now()).matricula(m2).turma(t2).build();
@@ -353,7 +361,7 @@ public class DBService {
         NotaAtivAval naa12 = NotaAtivAval.builder().atividadeAvaliativa(aa12).notaValor(9.2).notaTrimestral(nt12).build();
         NotaAtivAval naa13 = NotaAtivAval.builder().atividadeAvaliativa(aa13).notaValor(10.0).notaTrimestral(nt13).build();
         NotaAtivAval naa14 = NotaAtivAval.builder().atividadeAvaliativa(aa14).notaValor(10.0).notaTrimestral(nt14).build();
-        
+
         Pauta pt1 = Pauta.builder().conteudo("Operações Aritméticas").dataPauta(LocalDate.now()).gradeHoraria(gh1).periodo(1).qtdAulas(3).build();
         Pauta pt2 = Pauta.builder().conteudo("Orações verbais").dataPauta(LocalDate.now()).gradeHoraria(gh2).periodo(1).qtdAulas(3).build();
         Pauta pt3 = Pauta.builder().conteudo("Verbo to be").dataPauta(LocalDate.now()).gradeHoraria(gh3).periodo(1).qtdAulas(3).build();
@@ -361,25 +369,32 @@ public class DBService {
         Pauta pt5 = Pauta.builder().conteudo("Plano Cartesiano").dataPauta(LocalDate.now()).gradeHoraria(gh5).periodo(1).qtdAulas(3).build();
         Pauta pt6 = Pauta.builder().conteudo("Reino Animal").dataPauta(LocalDate.now()).gradeHoraria(gh6).periodo(1).qtdAulas(3).build();
         Pauta pt7 = Pauta.builder().conteudo("Jogo de Futsal").dataPauta(LocalDate.now()).gradeHoraria(gh7).periodo(1).qtdAulas(3).build();
-        
-        Pauta pt8 = Pauta.builder().conteudo("Operações Aritméticas").dataPauta(LocalDate.now()).gradeHoraria(gh8).periodo(1).qtdAulas(3).build();
-        Pauta pt9 = Pauta.builder().conteudo("Orações verbais").dataPauta(LocalDate.now()).gradeHoraria(gh9).periodo(1).qtdAulas(3).build();
-        Pauta pt10 = Pauta.builder().conteudo("Verbo to be").dataPauta(LocalDate.now()).gradeHoraria(gh10).periodo(1).qtdAulas(3).build();
-        Pauta pt11 = Pauta.builder().conteudo("Descobrimento do Brasil").dataPauta(LocalDate.now()).gradeHoraria(gh11).periodo(1).qtdAulas(3).build();
-        Pauta pt12 = Pauta.builder().conteudo("Plano Cartesiano").dataPauta(LocalDate.now()).gradeHoraria(gh12).periodo(1).qtdAulas(3).build();
-        Pauta pt13 = Pauta.builder().conteudo("Reino Animal").dataPauta(LocalDate.now()).gradeHoraria(gh13).periodo(1).qtdAulas(3).build();
-        Pauta pt14 = Pauta.builder().conteudo("Jogo de Futsal").dataPauta(LocalDate.now()).gradeHoraria(gh14).periodo(1).qtdAulas(3).build();
-        
+
+        Pauta pt8 = Pauta.builder().conteudo("Operações Aritméticas").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh1).periodo(1).qtdAulas(3).build();
+        Pauta pt9 = Pauta.builder().conteudo("Orações verbais").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh2).periodo(1).qtdAulas(3).build();
+        Pauta pt10 = Pauta.builder().conteudo("Verbo to be").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh3).periodo(1).qtdAulas(3).build();
+        Pauta pt11 = Pauta.builder().conteudo("Descobrimento do Brasil").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh4).periodo(1).qtdAulas(3).build();
+        Pauta pt12 = Pauta.builder().conteudo("Plano Cartesiano").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh5).periodo(1).qtdAulas(3).build();
+        Pauta pt13 = Pauta.builder().conteudo("Reino Animal").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh6).periodo(1).qtdAulas(3).build();
+        Pauta pt14 = Pauta.builder().conteudo("Jogo de Futsal").dataPauta(LocalDate.now().plusDays(5)).gradeHoraria(gh7).periodo(1).qtdAulas(3).build();
+
         Frequencia fr1 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('0').tempo(tp1).build();
         Frequencia fr2 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('1').tempo(tp2).build();
         Frequencia fr3 = Frequencia.builder().notaTrimestral(nt1).pauta(pt1).presenca('1').tempo(tp3).build();
-        
+        Frequencia fr4 = Frequencia.builder().notaTrimestral(nt1).pauta(pt8).presenca('1').tempo(tp1).build();
+        Frequencia fr5 = Frequencia.builder().notaTrimestral(nt1).pauta(pt8).presenca('0').tempo(tp2).build();
+        Frequencia fr6 = Frequencia.builder().notaTrimestral(nt1).pauta(pt8).presenca('1').tempo(tp3).build();
+        Frequencia fr7 = Frequencia.builder().notaTrimestral(nt1).pauta(pt2).presenca('1').tempo(tp4).build();
+        Frequencia fr8= Frequencia.builder().notaTrimestral(nt1).pauta(pt3).presenca('1').tempo(tp2).build();
+        Frequencia fr9 = Frequencia.builder().notaTrimestral(nt1).pauta(pt4).presenca('1').tempo(tp3).build();
+        Frequencia fr10 = Frequencia.builder().notaTrimestral(nt1).pauta(pt5).presenca('1').tempo(tp1).build();
+
         DataCalendario dt1 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.APRIL, 21)).descrCale("Tiradentes").periodoCale(1).tipoCale('F').build();
         DataCalendario dt2 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.SEPTEMBER, 7)).descrCale("Tiradentes").periodoCale(1).tipoCale('F').build();
         DataCalendario dt3 = DataCalendario.builder().dataCale(LocalDate.of(2019, Month.NOVEMBER, 15)).descrCale("Tiradentes").periodoCale(1).tipoCale('F').build();
-        
+
         Mensagem msg1 = Mensagem.builder().assunto("Mensagem de Teste").mensagem("Mensagem Teste").remetente(u1).build();
-        
+
         MensagemUsuario mUsr1 = MensagemUsuario.builder().destinatario(u2).mensagem(msg1).build();
         MensagemUsuario mUsr2 = MensagemUsuario.builder().destinatario(u3).mensagem(msg1).build();
         MensagemUsuario mUsr3 = MensagemUsuario.builder().destinatario(u1).mensagem(msg1).build();
@@ -401,6 +416,7 @@ public class DBService {
         bairroRepository.saveAll(Arrays.asList(b1));
         cepRepository.saveAll(Arrays.asList(cp1));
         emebRepository.saveAll(Arrays.asList(e));
+        turnoRepository.saveAll(Arrays.asList(tn1, tn2, tn3));
         turmaRepository.saveAll(Arrays.asList(t1, t2));
         turmAlunRepository.saveAll(Arrays.asList(tm1, tm2));
         gradeHorariaRepository.saveAll(Arrays.asList(gh1, gh2, gh3, gh4, gh5, gh6, gh7, gh8, gh9, gh10, gh11, gh12, gh13, gh14));

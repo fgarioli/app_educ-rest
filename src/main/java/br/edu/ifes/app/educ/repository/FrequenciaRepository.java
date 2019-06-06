@@ -21,11 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface FrequenciaRepository extends JpaRepository<Frequencia, Integer> {
     
     @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM Frequencia obj WHERE obj.notaTrimestral.turmAlun.codTurmAlun = :turmAlunId")
+    @Query(value = "SELECT obj FROM Frequencia obj WHERE obj.notaTrimestral.turmAlun.codTurmAlun = :turmAlunId ORDER BY obj.pauta.dataPauta")
     public List<Frequencia> findByTurmAlunId(@Param("turmAlunId") Integer turmAlunId);
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM Frequencia obj WHERE obj.notaTrimestral.turmAlun.codTurmAlun = :turmAlunId AND obj.notaTrimestral.periodo.numPeriodo = :trimestre")
+    @Query(value = "SELECT obj FROM Frequencia obj WHERE obj.notaTrimestral.turmAlun.codTurmAlun = :turmAlunId AND obj.notaTrimestral.periodo.numPeriodo = :trimestre ORDER BY obj.pauta.dataPauta, obj.notaTrimestral.periodo.numPeriodo")
     public List<Frequencia> findByTurmAlunIdTrimestre(@Param("turmAlunId") Integer turmAlunId, @Param("trimestre") Short trimestre);
 
 }
