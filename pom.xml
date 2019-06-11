@@ -23,18 +23,11 @@
         <java.version>1.8</java.version>
     </properties>
     
-    <repositories>        
-        <repository>
-            <id>Atlassian</id>
-            <name>oracle</name>
-            <url>https://packages.atlassian.com/maven-3rdparty/</url>
-        </repository>
-    </repositories>
-    
     <dependencies>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         
@@ -98,12 +91,12 @@
             <scope>runtime</scope>
         </dependency>
         
-        <dependency>
+<!--        <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.4.0-atlassian-hosted</version>
-            <!--<scope>test</scope>-->
-        </dependency>
+            <artifactId>ojdbc14</artifactId>
+            <version>10.2.0.4.0</version>
+        </dependency>-->
+        
     </dependencies>
 
     <build>
@@ -111,13 +104,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <compilerArguments>
                         <source>1.8</source>
