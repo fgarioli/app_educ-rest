@@ -47,16 +47,16 @@ public class BoletimDTO implements Serializable {
         this.disciplina = grade.getDisciplina().getNomeDisc();
         
         for (NotaTrimestral nt : listNotas) {
-            notaAnual += nt.getNotaValor();
+            notaAnual += nt.getNotaValor() == null ? 0 : nt.getNotaValor();
             totalFaltas += nt.getQtdFaltas();
             if (nt.getPeriodo().getNumPeriodo().equals(new Short("1"))) {
-                notaTrim1 = nt.getNotaValor();
+                notaTrim1 = nt.getNotaValor() == null ? 0 : nt.getNotaValor();
                 faltasTrim1 = nt.getQtdFaltas();
             } else if (nt.getPeriodo().getNumPeriodo().equals(new Short("2"))) {
-                notaTrim2 = nt.getNotaValor();
+                notaTrim2 = nt.getNotaValor() == null ? 0 : nt.getNotaValor();
                 faltasTrim3 = nt.getQtdFaltas();
             } else if (nt.getPeriodo().getNumPeriodo().equals(new Short("3"))) {
-                notaTrim3 = nt.getNotaValor();
+                notaTrim3 = nt.getNotaValor() == null ? 0 : nt.getNotaValor();
                 faltasTrim3 = nt.getQtdFaltas();
             }
         }

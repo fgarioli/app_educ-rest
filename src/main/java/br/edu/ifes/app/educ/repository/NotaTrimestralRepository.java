@@ -21,11 +21,11 @@ import org.springframework.transaction.annotation.Transactional;
 public interface NotaTrimestralRepository extends JpaRepository<NotaTrimestral, Integer> {
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM NotaTrimestral obj WHERE obj.turmAlun.codTurmAlun = :turmAlunId GROUP BY obj.gradeCurricular.codGrCu ORDER BY obj.periodo.numPeriodo")
+    @Query(value = "SELECT obj FROM NotaTrimestral obj WHERE obj.turmAlun.codTurmAlun = :turmAlunId ORDER BY obj.periodo.numPeriodo")
     public List<NotaTrimestral> findByTurmAlunId(@Param("turmAlunId") Integer turmAlunId);
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM NotaTrimestral obj WHERE obj.turmAlun.codTurmAlun = :turmAlunId AND obj.periodo.numPeriodo = :trimestre GROUP BY obj.gradeCurricular.codGrCu ORDER BY obj.periodo.numPeriodo")
+    @Query(value = "SELECT obj FROM NotaTrimestral obj WHERE obj.turmAlun.codTurmAlun = :turmAlunId AND obj.periodo.numPeriodo = :trimestre ORDER BY obj.periodo.numPeriodo")
     public List<NotaTrimestral> findByTurmAlunIdTrimestre(@Param("turmAlunId") Integer turmAlunId, @Param("trimestre") Short trimestre);
 
 }

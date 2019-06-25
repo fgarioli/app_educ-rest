@@ -47,7 +47,6 @@ public class NotaTrimestral implements Serializable {
     @Column(name = "NOTAFALTA")
     private Integer qtdFaltas;
 
-    @Lob
     @Column(name = "NOTADESCR")
     private String notaDescr;    
 
