@@ -30,9 +30,13 @@ public class Ano implements Serializable {
     @Basic(optional = false)
     @Column(name = "ANOCODIGO")
     private Integer codAno;
-    
+
     @Basic(optional = false)
     @Column(name = "ANODESCR", unique = true)
     private String descrAno;
-    
+
+    @Basic(optional = false)
+    @Column(name = "ANOAVALTRIM")
+    private char anoavaltrim;
+
 }

@@ -22,10 +22,10 @@ public interface TurmAlunRepository extends JpaRepository<TurmAlun, Integer> {
     
     @Transactional(readOnly = true)
     @Query(value = "SELECT obj FROM TurmAlun obj WHERE obj.matricula.aluno.codAlun = :alunId AND obj.turma.exercicio = :ano")
-    public List<TurmAlun> findByAlunIdAno(@Param("alunId") Integer alunId, @Param("ano") Integer ano);
+    public TurmAlun findByAlunIdAno(@Param("alunId") Integer alunId, @Param("ano") Integer ano);
 
     @Transactional(readOnly = true)
-    @Query(value = "SELECT obj FROM TurmAlun obj, Vinculo vin WHERE obj.matricula.aluno = vin.aluno AND vin.responsavel.codResp = :respId AND obj.turma.exercicio = :ano")
+    @Query(value = "SELECT obj FROM TurmAlun obj, Vinculo vin, Pessoa p, Aluno a WHERE p = a.pessoa AND obj.matricula.aluno = a AND obj.matricula.aluno = vin.aluno AND vin.responsavel.codResp = :respId AND obj.turma.exercicio = :ano")
     public List<TurmAlun> findByResponsavel(@Param("respId") Integer respId, @Param("ano") Integer ano);
     
     @Transactional(readOnly = true)

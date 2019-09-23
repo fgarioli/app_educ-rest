@@ -53,15 +53,10 @@ public class AlunoResource {
     private TurmAlunService turmAlunService;
     
     @RequestMapping(value = "/alun/{alunId}/{ano}", method = RequestMethod.GET)
-    public ResponseEntity<List<TurmAlunDTO>> findByAlunIdAno(@PathVariable Integer alunId, @PathVariable Integer ano) {
-        List<TurmAlun> list = turmAlunService.findByAlunIdAno(alunId, ano);
-        List<TurmAlunDTO> listDTO = new ArrayList<>();
+    public ResponseEntity<TurmAlunDTO> findByAlunIdAno(@PathVariable Integer alunId, @PathVariable Integer ano) {
+        TurmAlun alun = turmAlunService.findByAlunIdAno(alunId, ano);
 
-        list.forEach((a) -> {
-            listDTO.add(new TurmAlunDTO(a));
-        });
-
-        return ResponseEntity.ok().body(listDTO);
+        return ResponseEntity.ok().body(new TurmAlunDTO(alun));
     }
     
     @RequestMapping(value = "/{pessId}/{ano}", method = RequestMethod.GET)
