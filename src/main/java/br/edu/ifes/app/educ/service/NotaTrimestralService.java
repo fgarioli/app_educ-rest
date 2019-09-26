@@ -5,8 +5,10 @@
  */
 package br.edu.ifes.app.educ.service;
 
-import br.edu.ifes.app.educ.model.NotaTrimestral;
+import br.edu.ifes.app.educ.model.TurmAlun;
+import br.edu.ifes.app.educ.model.view.Boletim;
 import br.edu.ifes.app.educ.repository.NotaTrimestralRepository;
+import br.edu.ifes.app.educ.repository.TurmAlunRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +23,17 @@ public class NotaTrimestralService {
     @Autowired
     private NotaTrimestralRepository notaTrimestralRepository;
     
-    public List<NotaTrimestral> findByTurmAlunId(Integer codTurmAlun) {
-        return notaTrimestralRepository.findByTurmAlunId(codTurmAlun);
+    @Autowired
+    private TurmAlunRepository turmAlunRepository;
+    
+    public List<Boletim> findByTurmAlunId(Integer codTurmAlun) {
+        TurmAlun ta = turmAlunRepository.getOne(codTurmAlun);
+        return notaTrimestralRepository.getBoletim(ta.getTurma().getExercicio(), ta.getMatricula().getCodMatr());
     }
     
-    public List<NotaTrimestral> findByTurmAlunIdTrimestre(Integer codTurmAlun, Integer trimestre) {
-        return notaTrimestralRepository.findByTurmAlunIdTrimestre(codTurmAlun, trimestre.shortValue());
+    public List<Boletim> findByTurmAlunIdTrimestre(Integer codTurmAlun, Integer trimestre) {
+        TurmAlun ta = turmAlunRepository.getOne(codTurmAlun);
+        return notaTrimestralRepository.getBoletimByTrimestre(ta.getTurma().getExercicio(), ta.getMatricula().getCodMatr(), trimestre);
     }
     
 }

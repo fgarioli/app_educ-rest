@@ -13,8 +13,8 @@ import br.edu.ifes.app.educ.dto.TurmAlunDTO;
 import br.edu.ifes.app.educ.model.AtividadeAvaliativa;
 import br.edu.ifes.app.educ.model.Frequencia;
 import br.edu.ifes.app.educ.model.GradeHoraria;
-import br.edu.ifes.app.educ.model.NotaTrimestral;
 import br.edu.ifes.app.educ.model.TurmAlun;
+import br.edu.ifes.app.educ.model.view.Boletim;
 import br.edu.ifes.app.educ.service.AtividadeAvaliativaService;
 import br.edu.ifes.app.educ.service.FrequenciaService;
 import br.edu.ifes.app.educ.service.GradeHorariaService;
@@ -73,7 +73,7 @@ public class AlunoResource {
 
     @RequestMapping(value = {"/boletim/{idTurmAlun}", "/boletim/{idTurmAlun}/{trimestre}"}, method = RequestMethod.GET)
     public ResponseEntity<List<BoletimDTO>> findBoletimByTurmAlunIdTrimestre(@PathVariable Integer idTurmAlun, @PathVariable(required = false) Integer trimestre) {
-        List<NotaTrimestral> list = trimestre == null ? notaTrimestralService.findByTurmAlunId(idTurmAlun) : notaTrimestralService.findByTurmAlunIdTrimestre(idTurmAlun, trimestre);
+        List<Boletim> list = trimestre == null ? notaTrimestralService.findByTurmAlunId(idTurmAlun) : notaTrimestralService.findByTurmAlunIdTrimestre(idTurmAlun, trimestre);
 
         List<BoletimDTO> listBoletim = BoletimDTO.gerarBoletim(list);
 
