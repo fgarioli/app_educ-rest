@@ -5,7 +5,7 @@
  */
 package br.edu.ifes.app.educ.resource;
 
-import br.edu.ifes.app.educ.dto.MensagemDTO;
+import br.edu.ifes.app.educ.dto.MensagemUsuarioDTO;
 import br.edu.ifes.app.educ.model.MensagemUsuario;
 import br.edu.ifes.app.educ.service.MensagemUsuarioService;
 import java.util.ArrayList;
@@ -29,13 +29,13 @@ public class UsuarioResource {
     private MensagemUsuarioService mensagemService;
     
     @RequestMapping(value = "/msg/{idUsuario}", method = RequestMethod.GET)
-    public ResponseEntity<List<MensagemDTO>> findMensagemByUsuario(@PathVariable Long idUsuario) {
+    public ResponseEntity<List<MensagemUsuarioDTO>> findMensagemByUsuario(@PathVariable Long idUsuario) {
         List<MensagemUsuario> list = mensagemService.findMensagemByUsuario(idUsuario);
 
-        List<MensagemDTO> listDTO = new ArrayList<>();
+        List<MensagemUsuarioDTO> listDTO = new ArrayList<>();
 
         list.forEach((a) -> {
-            listDTO.add(new MensagemDTO(a));
+            listDTO.add(new MensagemUsuarioDTO(a));
         });
 
         return ResponseEntity.ok().body(listDTO);

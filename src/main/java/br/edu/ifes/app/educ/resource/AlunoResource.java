@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import br.edu.ifes.app.educ.model.view.BoletimView;
+import br.edu.ifes.app.educ.service.ClassificationService;
 
 /**
  *
@@ -39,6 +40,9 @@ public class AlunoResource {
 
     @Autowired
     private TurmAlunService turmAlunService;
+
+    @Autowired
+    private ClassificationService classService;
 
     @RequestMapping(value = "/alun/{alunId}/{ano}", method = RequestMethod.GET)
     public ResponseEntity<TurmAlunDTO> findByAlunIdAno(@PathVariable Integer alunId, @PathVariable Integer ano) {
@@ -75,6 +79,11 @@ public class AlunoResource {
         GradeHorariaDTO ghdto = new GradeHorariaDTO(list);
 
         return ResponseEntity.ok().body(ghdto);
+    }
+
+    @RequestMapping(value = "/classify/{idTurmAlun}", method = RequestMethod.GET)
+    public ResponseEntity<List<String>> getAreaEnsinoMedio(@PathVariable Integer idTurmAlun) throws Exception {
+        return ResponseEntity.ok().body(classService.classify(idTurmAlun));
     }
 
 }

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MensagemDTO implements Serializable {
+public class MensagemUsuarioDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
@@ -30,7 +30,7 @@ public class MensagemDTO implements Serializable {
     
     private String remetente;
     
-    public MensagemDTO(MensagemUsuario msg) {
+    public MensagemUsuarioDTO(MensagemUsuario msg) {
         this.codMsg = msg.getCodMsgUs();
         this.assunto = msg.getMensagem().getAssunto();
         this.mensagem = msg.getMensagem().getMensagem();
