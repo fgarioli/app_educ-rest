@@ -9,15 +9,25 @@ package br.edu.ifes.app.educ.model.view;
  *
  * @author fernando
  */
-public interface Boletim {
+public interface BoletimView {
+
     Integer getFALTA();
+
     Character getFRAVTIPOAVALIACAO();
+
     Character getRESULTADO();
+
     String getDESCRICAO();
+
     Double getNOTA();
+
     Double getN_RECUPERACAO();
+
     Integer getNUMPERIODO();
+
     String getDISCIPLINA();
+
     Integer getEXERCICIO();
+
     Integer getMATRCODIGO();
 }

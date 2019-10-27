@@ -106,6 +106,12 @@
             <artifactId>ojdbc6</artifactId>
             <version>11.2.0.4</version>
         </dependency>-->
+        
+        <dependency>
+            <groupId>nz.ac.waikato.cms.weka</groupId>
+            <artifactId>weka-stable</artifactId>
+            <version>3.8.3</version>
+        </dependency>
 
     </dependencies>
 

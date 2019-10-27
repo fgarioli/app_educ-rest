@@ -5,15 +5,13 @@
  */
 package br.edu.ifes.app.educ.dto;
 
-import br.edu.ifes.app.educ.model.GradeCurricular;
-import br.edu.ifes.app.educ.model.NotaTrimestral;
-import br.edu.ifes.app.educ.model.view.Boletim;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import br.edu.ifes.app.educ.model.view.BoletimView;
 
 /**
  *
@@ -35,7 +33,7 @@ public class BoletimDTO implements Serializable {
     private Integer periodo;
     private String disciplina;
 
-    private BoletimDTO(Boletim b) {
+    private BoletimDTO(BoletimView b) {
         this.disciplina = b.getDISCIPLINA();
         this.qtdFaltas = b.getFALTA();
         this.tipoAvaliacao = b.getFRAVTIPOAVALIACAO();
@@ -47,9 +45,9 @@ public class BoletimDTO implements Serializable {
         this.disciplina = b.getDISCIPLINA();
     }
 
-    public static List<BoletimDTO> gerarBoletim(List<Boletim> listNotas) {
+    public static List<BoletimDTO> gerarBoletim(List<BoletimView> listNotas) {
         List<BoletimDTO> list = new ArrayList<>();
-        for (Boletim b : listNotas) {
+        for (BoletimView b : listNotas) {
             list.add(new BoletimDTO(b));
         }
 

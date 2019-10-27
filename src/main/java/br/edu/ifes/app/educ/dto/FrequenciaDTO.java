@@ -5,12 +5,9 @@
  */
 package br.edu.ifes.app.educ.dto;
 
-import br.edu.ifes.app.educ.model.Disciplina;
-import br.edu.ifes.app.educ.model.Frequencia;
-import br.edu.ifes.app.educ.model.GradeHoraria;
+import br.edu.ifes.app.educ.model.view.FrequenciaView;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,49 +22,17 @@ import lombok.NoArgsConstructor;
 public class FrequenciaDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    private String disciplina;
-    
-    private Integer totalAulas;
-    
-    private Integer totalFaltas = 0;
-    
-    List<FrequenciaAulaDTO> listFreq = new ArrayList<>();
-    
-    private FrequenciaDTO(Disciplina disc, List<Frequencia> list) {
-        this.disciplina = disc.getNomeDisc();
-        this.totalAulas = list.size();
-        for (Frequencia f : list) {
-            if (!f.isPresenca()) {
-                totalFaltas++;
-            }
-            listFreq.add(new FrequenciaAulaDTO(f));
-        }
+
+    private Integer qtdFaltas;
+
+    private String conteudo;
+
+    private LocalDate dataAula;
+
+    public FrequenciaDTO(FrequenciaView fv) {
+        this.conteudo = fv.getPAUTACONTEUDO();
+        this.qtdFaltas = fv.getQT_FALTA();
+        this.dataAula = fv.getPAUTADATA();
     }
-    
-    public static List<FrequenciaDTO> gerarFrequenciasDTO(List<Frequencia> listFreq) {
-        List<GradeHoraria> listGrade = new ArrayList<>();
-        for (Frequencia f : listFreq) {
-            if (!listGrade.contains(f.getPauta().getGradeHoraria())) {
-                listGrade.add(f.getPauta().getGradeHoraria());
-            }
-        }
-        
-        List<FrequenciaDTO> listFreqDTO = new ArrayList<>();
-        for (GradeHoraria gh : listGrade) {
-            List<Frequencia> listFreqGrade = new ArrayList<>();
-            for (Frequencia f : listFreq) {
-                if (f.getPauta().getGradeHoraria().equals(gh)) {
-                    listFreqGrade.add(f);
-                }
-            }
-            
-            if (!listFreqGrade.isEmpty()) {
-                listFreqDTO.add(new FrequenciaDTO(gh.getGradeCurricular().getDisciplina(), listFreqGrade));
-            }
-        }
-        
-        return listFreqDTO;
-    }
-    
+
 }
